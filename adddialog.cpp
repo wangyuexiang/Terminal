@@ -35,6 +35,6 @@ AddDialog::AddDialog(QWidget *parent)
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-    setWindowTitle(tr("Add a Contact"));
+    setWindowTitle(tr("Add an Order"));
 }
 //! [0]

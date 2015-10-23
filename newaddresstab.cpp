@@ -11,7 +11,7 @@ NewAddressTab::NewAddressTab(QWidget *parent)
     descriptionLabel = new QLabel(tr("There are currently no order in your log. "
                                       "\nClick Add to add new order."));
 
-    addButton = new QPushButton(tr("Add"));
+    addButton = new QPushButton(tr("Add an Order"));
 
     connect(addButton, SIGNAL(clicked()), this, SLOT(addEntry()));
 
