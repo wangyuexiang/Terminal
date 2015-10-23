@@ -3,16 +3,18 @@
 
 #include <QtWidgets>
 
+
 //! [0]
 AddressWidget::AddressWidget(QWidget *parent)
     : QTabWidget(parent)
 {
     table = new TableModel(this);
+    producttable = new ProductModel(this);
     newAddressTab = new NewAddressTab(this);
     connect(newAddressTab, SIGNAL(sendDetails(QString, QString)),
         this, SLOT(addEntry(QString, QString)));
 
-    addTab(newAddressTab, "Address Book");
+    addTab(newAddressTab, "Add Order");
 
     setupTabs();
 }
@@ -118,35 +120,56 @@ void AddressWidget::removeEntry()
 //! [1]
 void AddressWidget::setupTabs()
 {
-    QStringList groups;
-    groups << "ABC" << "DEF" << "GHI" << "JKL" << "MNO" << "PQR" << "STU" << "VW" << "XYZ";
+	//Order List
+		table_proxy = new QSortFilterProxyModel(this);
+		table_proxy->setSourceModel(table);
+		table_proxy->setFilterKeyColumn(0);
 
-    for (int i = 0; i < groups.size(); ++i) {
-        QString str = groups.at(i);
-        QString regExp = QString("^[%1].*").arg(str);
+		QTableView *tableView = new QTableView;
+        tableView->setModel(table_proxy);
 
-        proxyModel = new QSortFilterProxyModel(this);
-        proxyModel->setSourceModel(table);
-        proxyModel->setFilterRegExp(QRegExp(regExp, Qt::CaseInsensitive));
-        proxyModel->setFilterKeyColumn(0);
+		tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+		tableView->horizontalHeader()->setStretchLastSection(true);
+		// tableView->verticalHeader()->hide();
+		tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
-        QTableView *tableView = new QTableView;
-        tableView->setModel(proxyModel);
+		tableView->setSortingEnabled(true);
 
-        tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-        tableView->horizontalHeader()->setStretchLastSection(true);
-        tableView->verticalHeader()->hide();
-        tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+		connect(tableView->selectionModel(),
+				SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+				this, SIGNAL(selectionChanged(QItemSelection)));
 
-        tableView->setSortingEnabled(true);
+		addTab(tableView, "Order List");
 
-        connect(tableView->selectionModel(),
-            SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            this, SIGNAL(selectionChanged(QItemSelection)));
+		// Product List
+		product_proxy = new QSortFilterProxyModel(this);
+		
+		// producttable.append(Product(1,2,2.5,10,20,20));
+		// producttable.append(Product(2,4,25,16,20,20));
+		// producttable.append(Product(1,2,2.5,10,25,20));
+		// producttable.append(Product(3,2,5,0,20,20));
+				
+		product_proxy->setSourceModel(producttable);
+		product_proxy->setFilterKeyColumn(0);
 
-        addTab(tableView, str);
-    }
+		QTableView *productView = new QTableView;
+		productView->setModel(product_proxy);
+
+		productView->setSelectionBehavior(QAbstractItemView::SelectRows);
+		productView->horizontalHeader()->setStretchLastSection(true);
+		productView->verticalHeader()->hide();
+		productView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		productView->setSelectionMode(QAbstractItemView::SingleSelection);
+
+		productView->setSortingEnabled(true);
+
+		connect(productView->selectionModel(),
+				SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+				this, SIGNAL(selectionChanged(QItemSelection)));
+
+		addTab(productView, "Product List");
+		
 }
 //! [1]
 
@@ -166,8 +189,8 @@ void AddressWidget::readFromFile(const QString &fileName)
     in >> pairs;
 
     if (pairs.isEmpty()) {
-        QMessageBox::information(this, tr("No contacts in file"),
-                                 tr("The file you are attempting to open contains no contacts."));
+        QMessageBox::information(this, tr("No orders in file"),
+                                 tr("The file you are attempting to open contains no orders."));
     } else {
         for (int i=0; i<pairs.size(); ++i) {
             QPair<QString, QString> p = pairs.at(i);

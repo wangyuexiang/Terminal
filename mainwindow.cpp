@@ -17,12 +17,12 @@ MainWindow::MainWindow()
 //! [1a]
 void MainWindow::createMenus()
 {
+		// fileMenu
     fileMenu = menuBar()->addMenu(tr("&Terminal"));
 
     openAct = new QAction(tr("&Open..."), this);
     fileMenu->addAction(openAct);
     connect(openAct, SIGNAL(triggered()), this, SLOT(openFile()));
-//! [1a]
 
     saveAct = new QAction(tr("&Save As..."), this);
     fileMenu->addAction(saveAct);
@@ -33,14 +33,14 @@ void MainWindow::createMenus()
     exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
-
+	
+		// toolMenu
     toolMenu = menuBar()->addMenu(tr("&Orders"));
 
     addAct = new QAction(tr("&Add Order..."), this);
     toolMenu->addAction(addAct);
     connect(addAct, SIGNAL(triggered()), addressWidget, SLOT(addEntry()));
 
-//! [1b]
     editAct = new QAction(tr("&Edit Order..."), this);
     editAct->setEnabled(false);
     toolMenu->addAction(editAct);
@@ -52,24 +52,30 @@ void MainWindow::createMenus()
     removeAct->setEnabled(false);
     toolMenu->addAction(removeAct);
     connect(removeAct, SIGNAL(triggered()), addressWidget, SLOT(removeEntry()));
+		
+		// productMenu
+		productMenu = menuBar()->addMenu(tr("&Products"));
+
+    addAct = new QAction(tr("&Add Product..."), this);
+    productMenu->addAction(addAct);
+    connect(addAct, SIGNAL(triggered()), addressWidget, SLOT(addEntry()));
+
+    editAct = new QAction(tr("&Edit Product..."), this);
+    editAct->setEnabled(false);
+    productMenu->addAction(editAct);
+    connect(editAct, SIGNAL(triggered()), addressWidget, SLOT(editEntry()));
+
+    productMenu->addSeparator();
+
+    removeAct = new QAction(tr("&Remove Product"), this);
+    removeAct->setEnabled(false);
+    productMenu->addAction(removeAct);
+    connect(removeAct, SIGNAL(triggered()), addressWidget, SLOT(removeEntry()));
 
     connect(addressWidget, SIGNAL(selectionChanged(QItemSelection)),
         this, SLOT(updateActions(QItemSelection)));
-				
-		
-		// productMenu = menuBar()->addMenu(tr("&Product"));
-
-    // addProduct = new QAction(tr("&Add Product..."), this);
-    // productMenu->addAction(addProduct);
-    // connect(addProduct, SIGNAL(triggered()), addressWidget, SLOT(addEntry()));
-
-    // editProduct = new QAction(tr("&Edit Product..."), this);
-    // editProduct->setEnabled(false);
-    // productMenu->addAction(editProduct);
-    // connect(editProduct, SIGNAL(triggered()), addressWidget, SLOT(editEntry()));
 
 }
-//! [1b]
 
 //! [2]
 void MainWindow::openFile()

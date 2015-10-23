@@ -1,10 +1,9 @@
-
-
 #ifndef ADDRESSWIDGET_H
 #define ADDRESSWIDGET_H
 
 #include "newaddresstab.h"
 #include "tablemodel.h"
+#include "productmodel.h"
 
 #include <QItemSelection>
 #include <QTabWidget>
@@ -37,8 +36,12 @@ private:
     void setupTabs();
 
     TableModel *table;
+    ProductModel *producttable;
+		
     NewAddressTab *newAddressTab;
-    QSortFilterProxyModel *proxyModel;
+
+    QSortFilterProxyModel *table_proxy;
+    QSortFilterProxyModel *product_proxy;
 };
 //! [0]
 
