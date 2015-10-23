@@ -1,5 +1,7 @@
 #include "productmodel.h"
 
+#include <string>
+
 ProductModel::ProductModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
@@ -69,5 +71,71 @@ Qt::ItemFlags ProductModel::flags(const QModelIndex &index) const
         return Qt::ItemIsEnabled;
 
     return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+}
+
+
+
+bool ProductModel::insertRows(int position, int rows, const QModelIndex &index)
+{
+    Q_UNUSED(index);
+    beginInsertRows(QModelIndex(), position, position + rows - 1);
+
+    for (int row = 0; row < rows; ++row) {
+        Product product(0,0,0,0,0,0);
+        listOfProducts.insert(position, product);
+    }
+
+    endInsertRows();
+    return true;
+}
+
+bool ProductModel::removeRows(int position, int rows, const QModelIndex &index)
+{
+    Q_UNUSED(index);
+    beginRemoveRows(QModelIndex(), position, position + rows - 1);
+
+    for (int row = 0; row < rows; ++row) {
+        listOfProducts.removeAt(position);
+    }
+
+    endRemoveRows();
+    return true;
+}
+
+bool ProductModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (index.isValid() && role == Qt::EditRole) {
+        int row = index.row();
+
+        Product p = listOfProducts.value(row);
+				switch (index.column()) {
+					case 0: p.setItem(value.toInt());
+					case 1: p.setCategory(value.toInt());
+					case 2: p.setWeight(value.toDouble());
+					case 3: p.setNumber1(value.toInt());
+					case 4: p.setNumber2(value.toInt());
+					case 5: p.setNumber3(value.toInt());
+					// case 0: p.setItem(value);
+					// case 1: p.setCategory(value);
+					// case 2: p.setWeight(std::stod(value));
+					// case 3: p.setNumber1(value);
+					// case 4: p.setNumber2(value);
+					// case 5: p.setNumber3(value);
+				default: return false;
+				}
+        // if (index.column() == 0)
+            // p.first = value.toString();
+        // else if (index.column() == 1)
+            // p.second = value.toString();
+        // else
+            // return false;
+
+        listOfProducts.replace(row, p);
+        emit(dataChanged(index, index));
+
+        return true;
+    }
+
+    return false;
 }
 

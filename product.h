@@ -32,6 +32,13 @@ public:
 	int getNumber1() {return max_number[0];}
 	int getNumber2() {return max_number[1];}
 	int getNumber3() {return max_number[2];}
+	
+	bool setItem(int i) { item = i; return true;}
+	bool setCategory(int c) { category = c; return true;}
+	bool setWeight(double w) { weight = w; return true;}
+	bool setNumber1(int number1) { max_number[0] = number1; return true;}
+	bool setNumber2(int number2) { max_number[1] = number2; return true;}
+	bool setNumber3(int number3) { max_number[2] = number3; return true;}
 };
 
 
