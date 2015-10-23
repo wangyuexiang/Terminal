@@ -31,6 +31,11 @@ private:
     QAction *addAct;
     QAction *editAct;
     QAction *removeAct;
+		
+		QMenu *productMenu;
+		QAction *addProduct;
+    QAction *editProduct;
+    QAction *removeProduct;
 };
 //! [0]
 

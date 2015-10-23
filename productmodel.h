@@ -10,7 +10,7 @@ class ProductModel : public QAbstractTableModel {
 		Q_OBJECT
 public:
     ProductModel(QObject *parent = 0);
-    ProductModel(QList<Product > listOfProducts, QObject *parent = 0);
+    ProductModel(QList<Product> listOfProducts, QObject *parent = 0);
 
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
@@ -19,7 +19,7 @@ public:
 		
 		void append(const Product & product) Q_DECL_OVERRIDE;
 
-    // Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
+    Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
     // bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
     // bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;
     // bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;

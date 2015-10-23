@@ -63,4 +63,11 @@ void ProductModel::append(const Product & product) {
 		endInsertRows();
 }
 
+Qt::ItemFlags ProductModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::ItemIsEnabled;
+
+    return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+}
 
