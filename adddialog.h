@@ -10,7 +10,6 @@ class QTextEdit;
 class QLineEdit;
 QT_END_NAMESPACE
 
-//! [0]
 class AddDialog : public QDialog
 {
     Q_OBJECT
@@ -26,6 +25,30 @@ private:
     QPushButton *okButton;
     QPushButton *cancelButton;
 };
-//! [0]
+
+class AddProductDialog : public QDialog
+{
+    Q_OBJECT
+
+public:
+    AddProductDialog(QWidget *parent = 0);
+    QLineEdit *itemText;
+		QLineEdit *categoryText;
+		QLineEdit *weightText;
+		QLineEdit *number1Text;
+		QLineEdit *number2Text;
+		QLineEdit *number3Text;
+
+private:
+    QLabel *itemLabel;
+		QLabel *categoryLabel;
+		QLabel *weightLabel;
+		QLabel *number1Label;
+		QLabel *number2Label;
+		QLabel *number3Label;
+    QPushButton *okButton;
+    QPushButton *cancelButton;
+};
+
 
 #endif // ADDDIALOG_H

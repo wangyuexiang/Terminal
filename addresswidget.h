@@ -13,7 +13,6 @@ class QSortFilterProxyModel;
 class QItemSelectionModel;
 QT_END_NAMESPACE
 
-//! [0]
 class AddressWidget : public QTabWidget
 {
     Q_OBJECT
@@ -28,6 +27,11 @@ public slots:
     void addEntry(QString name, QString address);
     void editEntry();
     void removeEntry();
+		
+		void addProduct();
+    void addProduct(int i, int c, double w, int number1, int number2, int number3);
+    void editProduct();
+    void removeProduct();
 
 signals:
     void selectionChanged (const QItemSelection &selected);

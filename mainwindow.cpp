@@ -4,7 +4,6 @@
 #include <QFileDialog>
 #include <QMenuBar>
 
-//! [0]
 MainWindow::MainWindow()
 {
     addressWidget = new AddressWidget;
@@ -12,9 +11,7 @@ MainWindow::MainWindow()
     createMenus();
     setWindowTitle(tr("Warehouse Terminal"));
 }
-//! [0]
 
-//! [1a]
 void MainWindow::createMenus()
 {
 		// fileMenu
@@ -58,44 +55,39 @@ void MainWindow::createMenus()
 
     addAct = new QAction(tr("&Add Product..."), this);
     productMenu->addAction(addAct);
-    connect(addAct, SIGNAL(triggered()), addressWidget, SLOT(addEntry()));
+    connect(addAct, SIGNAL(triggered()), addressWidget, SLOT(addProduct()));
 
     editAct = new QAction(tr("&Edit Product..."), this);
     editAct->setEnabled(false);
     productMenu->addAction(editAct);
-    connect(editAct, SIGNAL(triggered()), addressWidget, SLOT(editEntry()));
+    connect(editAct, SIGNAL(triggered()), addressWidget, SLOT(editProduct()));
 
     productMenu->addSeparator();
 
     removeAct = new QAction(tr("&Remove Product"), this);
     removeAct->setEnabled(false);
     productMenu->addAction(removeAct);
-    connect(removeAct, SIGNAL(triggered()), addressWidget, SLOT(removeEntry()));
+    connect(removeAct, SIGNAL(triggered()), addressWidget, SLOT(removeProduct()));
 
     connect(addressWidget, SIGNAL(selectionChanged(QItemSelection)),
         this, SLOT(updateActions(QItemSelection)));
 
 }
 
-//! [2]
 void MainWindow::openFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this);
     if (!fileName.isEmpty())
         addressWidget->readFromFile(fileName);
 }
-//! [2]
 
-//! [3]
 void MainWindow::saveFile()
 {
     QString fileName = QFileDialog::getSaveFileName(this);
     if (!fileName.isEmpty())
         addressWidget->writeToFile(fileName);
 }
-//! [3]
 
-//! [4]
 void MainWindow::updateActions(const QItemSelection &selection)
 {
     QModelIndexList indexes = selection.indexes();
@@ -108,4 +100,3 @@ void MainWindow::updateActions(const QItemSelection &selection)
         editAct->setEnabled(false);
     }
 }
-//! [4]

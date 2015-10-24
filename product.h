@@ -5,7 +5,6 @@ struct Product{
 	int item;     // which kind of product,  not the id;
 	int category; // optional now;
 	double  weight;   // 
-
 	int max_number[3]; // the maximum item number for small, 
 
 public: 

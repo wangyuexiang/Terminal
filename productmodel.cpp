@@ -65,16 +65,6 @@ void ProductModel::append(const Product & product) {
 		endInsertRows();
 }
 
-Qt::ItemFlags ProductModel::flags(const QModelIndex &index) const
-{
-    if (!index.isValid())
-        return Qt::ItemIsEnabled;
-
-    return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
-}
-
-
-
 bool ProductModel::insertRows(int position, int rows, const QModelIndex &index)
 {
     Q_UNUSED(index);
@@ -115,20 +105,8 @@ bool ProductModel::setData(const QModelIndex &index, const QVariant &value, int 
 					case 3: p.setNumber1(value.toInt());
 					case 4: p.setNumber2(value.toInt());
 					case 5: p.setNumber3(value.toInt());
-					// case 0: p.setItem(value);
-					// case 1: p.setCategory(value);
-					// case 2: p.setWeight(std::stod(value));
-					// case 3: p.setNumber1(value);
-					// case 4: p.setNumber2(value);
-					// case 5: p.setNumber3(value);
 				default: return false;
 				}
-        // if (index.column() == 0)
-            // p.first = value.toString();
-        // else if (index.column() == 1)
-            // p.second = value.toString();
-        // else
-            // return false;
 
         listOfProducts.replace(row, p);
         emit(dataChanged(index, index));
@@ -139,3 +117,15 @@ bool ProductModel::setData(const QModelIndex &index, const QVariant &value, int 
     return false;
 }
 
+Qt::ItemFlags ProductModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::ItemIsEnabled;
+
+    return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+}
+
+QList<Product> ProductModel::getList()
+{
+    return listOfProducts;
+}
