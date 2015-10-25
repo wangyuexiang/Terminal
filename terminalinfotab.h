@@ -1,5 +1,5 @@
-#ifndef NEWADDRESSTAB_H
-#define NEWADDRESSTAB_H
+#ifndef TERMINALINFOTAB_H
+#define TERMINALINFOTAB_H
 
 #include <QWidget>
 
@@ -10,15 +10,16 @@ class QVBoxLayout;
 QT_END_NAMESPACE
 
 //! [0]
-class NewAddressTab : public QWidget
+class TerminalInfoTab : public QWidget
 {
     Q_OBJECT
 
 public:
-    NewAddressTab(QWidget *parent = 0);
+    TerminalInfoTab(QWidget *parent = 0);
 
 public slots:
     void addEntry();
+		// void addProduct();
 
 signals:
     void sendDetails(QString name, QString address);
@@ -29,6 +30,5 @@ private:
     QVBoxLayout *mainLayout;
 
 };
-//! [0]
 
-#endif
+#endif // TERMINALINFOTAB_H

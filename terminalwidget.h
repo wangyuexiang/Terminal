@@ -1,7 +1,7 @@
 #ifndef TERMINALWIDGET_H
 #define TERMINALWIDGET_H
 
-#include "newaddresstab.h"
+#include "terminalinfotab.h"
 #include "tablemodel.h"
 #include "productmodel.h"
 
@@ -42,7 +42,7 @@ private:
     TableModel *table;
     ProductModel *producttable;
 		
-    NewAddressTab *newAddressTab;
+    TerminalInfoTab *terminalInfoTab;
 
     QSortFilterProxyModel *table_proxy;
     QSortFilterProxyModel *product_proxy;

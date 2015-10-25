@@ -1,19 +1,18 @@
 #include "adddialog.h"
-#include "newaddresstab.h"
+#include "terminalinfotab.h"
 
 #include <QtWidgets>
 
-//! [0]
-NewAddressTab::NewAddressTab(QWidget *parent)
+TerminalInfoTab::TerminalInfoTab(QWidget *parent)
 {
     Q_UNUSED(parent);
 
-    descriptionLabel = new QLabel(tr("There are currently no order in your log. "
-                                      "\nClick Add to add new order."));
+    descriptionLabel = new QLabel(tr("This tab is used to display Termnial & Operator Information. "
+                                      "\nClick Add to add new Product."));
 
-    addButton = new QPushButton(tr("Add an Order"));
+    addButton = new QPushButton(tr("Add a Product"));
 
-    connect(addButton, SIGNAL(clicked()), this, SLOT(addEntry()));
+    connect(addButton, SIGNAL(clicked()), this, SLOT(addProduct()));
 
     mainLayout = new QVBoxLayout;
     mainLayout->addWidget(descriptionLabel);
@@ -21,10 +20,8 @@ NewAddressTab::NewAddressTab(QWidget *parent)
 
     setLayout(mainLayout);
 }
-//! [0]
 
-//! [1]
-void NewAddressTab::addEntry()
+void TerminalInfoTab::addEntry()
 {
     AddDialog aDialog;
 
@@ -35,4 +32,3 @@ void NewAddressTab::addEntry()
         emit sendDetails(name, address);
     }
 }
-//! [1]

@@ -14,11 +14,11 @@ TerminalWidget::TerminalWidget(QWidget *parent)
 		addProduct(3,2,5,0,20,20);
 		addProduct(1,2,2.5,10,25,20);		
 	
-    newAddressTab = new NewAddressTab(this);
-    connect(newAddressTab, SIGNAL(sendDetails(QString, QString)),
+    terminalInfoTab = new TerminalInfoTab(this);
+    connect(terminalInfoTab, SIGNAL(sendDetails(QString, QString)),
         this, SLOT(addEntry(QString, QString)));
 
-    addTab(newAddressTab, "Add Order");
+    addTab(terminalInfoTab, "Add Order");
 
     setupTabs();
 }
@@ -47,7 +47,7 @@ void TerminalWidget::addEntry(QString name, QString address)
         table->setData(index, name, Qt::EditRole);
         index = table->index(0, 1, QModelIndex());
         table->setData(index, address, Qt::EditRole);
-        removeTab(indexOf(newAddressTab));
+        // removeTab(indexOf(terminalInfoTab));
     } else {
         QMessageBox::information(this, tr("Duplicate Name"),
             tr("The name \"%1\" already exists.").arg(name));
@@ -106,7 +106,7 @@ void TerminalWidget::removeEntry()
     }
 
     if (table->rowCount(QModelIndex()) == 0) {
-        insertTab(0, newAddressTab, "Order List");
+        insertTab(0, terminalInfoTab, "Order List");
     }
 }
 
@@ -119,7 +119,6 @@ void TerminalWidget::setupTabs()
 
 		QTableView *tableView = new QTableView;
 		tableView->setModel(table_proxy);
-
 		tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 		tableView->horizontalHeader()->setStretchLastSection(true);
 		// tableView->verticalHeader()->hide();
@@ -136,13 +135,11 @@ void TerminalWidget::setupTabs()
 
 		// Product List Tab
 		product_proxy = new QSortFilterProxyModel(this);
-				
 		product_proxy->setSourceModel(producttable);
 		product_proxy->setFilterKeyColumn(0);
 
 		QTableView *productView = new QTableView;
 		productView->setModel(product_proxy);
-
 		productView->setSelectionBehavior(QAbstractItemView::SelectRows);
 		productView->horizontalHeader()->setStretchLastSection(true);
 		productView->verticalHeader()->hide();

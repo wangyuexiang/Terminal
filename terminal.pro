@@ -4,13 +4,13 @@ SOURCES   = adddialog.cpp \
             terminalwidget.cpp \
             main.cpp \
             mainwindow.cpp \
-            newaddresstab.cpp \
+            terminalinfotab.cpp \
             tablemodel.cpp  \
             productmodel.cpp
 HEADERS   = adddialog.h \
             terminalwidget.h \
             mainwindow.h \
-            newaddresstab.h \
+            terminalinfotab.h \
             tablemodel.h \
             productmodel.h\
             product.h
