@@ -24,6 +24,11 @@ public:
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) Q_DECL_OVERRIDE;
     QList<Product> getList();
 		
+		void append(const Product & product) Q_DECL_OVERRIDE;
+		bool insertProduct(int row, const Product & product) Q_DECL_OVERRIDE;
+
+
+		
 private:
     QList<Product> listOfProducts;
 };
