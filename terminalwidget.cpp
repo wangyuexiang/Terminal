@@ -1,12 +1,19 @@
 #include "adddialog.h"
-#include "addresswidget.h"
+#include "terminalwidget.h"
 
 #include <QtWidgets>
-AddressWidget::AddressWidget(QWidget *parent)
+TerminalWidget::TerminalWidget(QWidget *parent)
     : QTabWidget(parent)
 {
     table = new TableModel(this);
     producttable = new ProductModel(this);
+
+	// add some products as reference, to be removed
+		addProduct(1,2,2.5,10,20,20);
+		addProduct(2,4,25,16,20,20);
+		addProduct(3,2,5,0,20,20);
+		addProduct(1,2,2.5,10,25,20);		
+	
     newAddressTab = new NewAddressTab(this);
     connect(newAddressTab, SIGNAL(sendDetails(QString, QString)),
         this, SLOT(addEntry(QString, QString)));
@@ -16,7 +23,7 @@ AddressWidget::AddressWidget(QWidget *parent)
     setupTabs();
 }
 
-void AddressWidget::addEntry()
+void TerminalWidget::addEntry()
 {
     AddDialog aDialog;
 
@@ -28,7 +35,7 @@ void AddressWidget::addEntry()
     }
 }
 
-void AddressWidget::addEntry(QString name, QString address)
+void TerminalWidget::addEntry(QString name, QString address)
 {
     QList<QPair<QString, QString> >list = table->getList();
     QPair<QString, QString> pair(name, address);
@@ -47,7 +54,7 @@ void AddressWidget::addEntry(QString name, QString address)
     }
 }
 
-void AddressWidget::editEntry()
+void TerminalWidget::editEntry()
 {
     QTableView *temp = static_cast<QTableView*>(currentWidget());
     QSortFilterProxyModel *proxy = static_cast<QSortFilterProxyModel*>(temp->model());
@@ -85,7 +92,7 @@ void AddressWidget::editEntry()
     }
 }
 
-void AddressWidget::removeEntry()
+void TerminalWidget::removeEntry()
 {
     QTableView *temp = static_cast<QTableView*>(currentWidget());
     QSortFilterProxyModel *proxy = static_cast<QSortFilterProxyModel*>(temp->model());
@@ -103,9 +110,9 @@ void AddressWidget::removeEntry()
     }
 }
 
-void AddressWidget::setupTabs()
+void TerminalWidget::setupTabs()
 {
-	//Order List
+		//Order List
 		table_proxy = new QSortFilterProxyModel(this);
 		table_proxy->setSourceModel(table);
 		table_proxy->setFilterKeyColumn(0);
@@ -129,10 +136,6 @@ void AddressWidget::setupTabs()
 
 		// Product List
 		product_proxy = new QSortFilterProxyModel(this);
-		// producttable.append(Product(1,2,2.5,10,20,20));
-		// producttable.append(Product(2,4,25,16,20,20));
-		// producttable.append(Product(1,2,2.5,10,25,20));
-		// producttable.append(Product(3,2,5,0,20,20));
 				
 		product_proxy->setSourceModel(producttable);
 		product_proxy->setFilterKeyColumn(0);
@@ -153,10 +156,9 @@ void AddressWidget::setupTabs()
 				this, SIGNAL(selectionChanged(QItemSelection)));
 
 		addTab(productView, "Product List");
-		
 }
 
-void AddressWidget::readFromFile(const QString &fileName)
+void TerminalWidget::readFromFile(const QString &fileName)
 {
     QFile file(fileName);
 
@@ -181,7 +183,7 @@ void AddressWidget::readFromFile(const QString &fileName)
     }
 }
 
-void AddressWidget::writeToFile(const QString &fileName)
+void TerminalWidget::writeToFile(const QString &fileName)
 {
     QFile file(fileName);
 
@@ -195,7 +197,7 @@ void AddressWidget::writeToFile(const QString &fileName)
     out << pairs;
 }
 
-void AddressWidget::addProduct()
+void TerminalWidget::addProduct()
 {
     AddProductDialog aDialog;
 
@@ -211,12 +213,12 @@ void AddressWidget::addProduct()
     }
 }
 
-void AddressWidget::addProduct(int i, int c, double w, int number1, int number2, int number3)
+void TerminalWidget::addProduct(int i, int c, double w, int number1, int number2, int number3)
 {
-    QList<Product> list = producttable->getList();
-    Product p(i,c, w, number1, number2, number3);
+    // QList<Product> list = producttable->getList();
+    // Product p(i,c, w, number1, number2, number3);
 
-    // if (!list.contains(p)) {
+    // if (!list.contains(p)) { // == for Product not developped
         producttable->insertRows(0, 1, QModelIndex());
 
         QModelIndex index = producttable->index(0, 0, QModelIndex());
@@ -238,7 +240,7 @@ void AddressWidget::addProduct(int i, int c, double w, int number1, int number2,
     // }
 }
 
-void AddressWidget::editProduct()
+void TerminalWidget::editProduct()
 {
     QTableView *temp = static_cast<QTableView*>(currentWidget());
     QSortFilterProxyModel *proxy = static_cast<QSortFilterProxyModel*>(temp->model());
@@ -327,7 +329,7 @@ void AddressWidget::editProduct()
     }
 }
 
-void AddressWidget::removeProduct()
+void TerminalWidget::removeProduct()
 {
     QTableView *temp = static_cast<QTableView*>(currentWidget());
     QSortFilterProxyModel *proxy = static_cast<QSortFilterProxyModel*>(temp->model());

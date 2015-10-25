@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "addresswidget.h"
+#include "terminalwidget.h"
 
 #include <QMainWindow>
 
@@ -20,7 +20,7 @@ private slots:
 private:
     void createMenus();
 
-    AddressWidget *addressWidget;
+    TerminalWidget *terminalWidget;
     QMenu *fileMenu;
     QMenu *toolMenu;
     QAction *openAct;
@@ -30,11 +30,10 @@ private:
     QAction *editAct;
     QAction *removeAct;
 		
-		QMenu *productMenu;
-		QAction *addProduct;
+    QMenu *productMenu;
+    QAction *addProduct;
     QAction *editProduct;
     QAction *removeProduct;
 };
-//! [0]
 
 #endif // MAINWINDOW_H

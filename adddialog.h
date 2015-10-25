@@ -50,5 +50,4 @@ private:
     QPushButton *cancelButton;
 };
 
-
 #endif // ADDDIALOG_H

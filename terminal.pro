@@ -1,14 +1,14 @@
 QT += widgets
 
 SOURCES   = adddialog.cpp \
-            addresswidget.cpp \
+            terminalwidget.cpp \
             main.cpp \
             mainwindow.cpp \
             newaddresstab.cpp \
             tablemodel.cpp  \
             productmodel.cpp
 HEADERS   = adddialog.h \
-            addresswidget.h \
+            terminalwidget.h \
             mainwindow.h \
             newaddresstab.h \
             tablemodel.h \
@@ -16,5 +16,5 @@ HEADERS   = adddialog.h \
             product.h
 
 # install
-target.path = $$[QT_INSTALL_EXAMPLES]/widgets/itemviews/addressbook
+target.path = /usr/local/lib
 INSTALLS += target

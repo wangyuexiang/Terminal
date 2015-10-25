@@ -9,7 +9,7 @@ ProductModel::ProductModel(QObject *parent)
 
 ProductModel::ProductModel(QList<Product> products, QObject *parent)
     : QAbstractTableModel(parent)
-{
+{		
     listOfProducts = products;
 }
 
@@ -59,11 +59,11 @@ QVariant ProductModel::headerData(int section, Qt::Orientation orientation, int 
 		}
 }
 
-void ProductModel::append(const Product & product) {
-		beginInsertRows(QModelIndex(), listOfProducts.count(), listOfProducts.count());
-		listOfProducts.append(product);
-		endInsertRows();
-}
+// void ProductModel::append(const Product & product) {
+		// beginInsertRows(QModelIndex(), listOfProducts.count(), listOfProducts.count());
+		// listOfProducts.append(product);
+		// endInsertRows();
+// }
 
 bool ProductModel::insertRows(int position, int rows, const QModelIndex &index)
 {
@@ -71,7 +71,7 @@ bool ProductModel::insertRows(int position, int rows, const QModelIndex &index)
     beginInsertRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; ++row) {
-        Product product(0,0,0,0,0,0);
+        Product product(0,0,1,0,0,0);
         listOfProducts.insert(position, product);
     }
 
@@ -97,7 +97,8 @@ bool ProductModel::setData(const QModelIndex &index, const QVariant &value, int 
     if (index.isValid() && role == Qt::EditRole) {
         int row = index.row();
 
-        Product p = listOfProducts.value(row);
+				Product p = listOfProducts.value(row);
+				
 				switch (index.column()) {
 					case 0: p.setItem(value.toInt());
 					case 1: p.setCategory(value.toInt());
@@ -107,7 +108,7 @@ bool ProductModel::setData(const QModelIndex &index, const QVariant &value, int 
 					case 5: p.setNumber3(value.toInt());
 				default: return false;
 				}
-
+				
         listOfProducts.replace(row, p);
         emit(dataChanged(index, index));
 

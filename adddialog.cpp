@@ -59,7 +59,7 @@ AddProductDialog::AddProductDialog(QWidget *parent)
     QGridLayout *gLayout = new QGridLayout;
     gLayout->setColumnStretch(1, 2);
     gLayout->addWidget(itemLabel, 0, 0);
-    gLayout->addWidget(itemText, 0, 1);
+    gLayout->addWidget(itemText, 0, 1, Qt::AlignLeft);
 
     gLayout->addWidget(categoryLabel, 1, 0, Qt::AlignLeft|Qt::AlignTop);
     gLayout->addWidget(categoryText, 1, 1, Qt::AlignLeft);
@@ -91,4 +91,3 @@ AddProductDialog::AddProductDialog(QWidget *parent)
 
     setWindowTitle(tr("Add a Product"));
 }
-

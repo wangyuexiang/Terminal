@@ -6,8 +6,8 @@
 
 MainWindow::MainWindow()
 {
-    addressWidget = new AddressWidget;
-    setCentralWidget(addressWidget);
+    terminalWidget = new TerminalWidget;
+    setCentralWidget(terminalWidget);
     createMenus();
     setWindowTitle(tr("Warehouse Terminal"));
 }
@@ -36,40 +36,40 @@ void MainWindow::createMenus()
 
     addAct = new QAction(tr("&Add Order..."), this);
     toolMenu->addAction(addAct);
-    connect(addAct, SIGNAL(triggered()), addressWidget, SLOT(addEntry()));
+    connect(addAct, SIGNAL(triggered()), terminalWidget, SLOT(addEntry()));
 
     editAct = new QAction(tr("&Edit Order..."), this);
-    editAct->setEnabled(false);
+    // editAct->setEnabled(false);
     toolMenu->addAction(editAct);
-    connect(editAct, SIGNAL(triggered()), addressWidget, SLOT(editEntry()));
+    connect(editAct, SIGNAL(triggered()), terminalWidget, SLOT(editEntry()));
 
     toolMenu->addSeparator();
 
     removeAct = new QAction(tr("&Cancel Order"), this);
-    removeAct->setEnabled(false);
+    // removeAct->setEnabled(false);
     toolMenu->addAction(removeAct);
-    connect(removeAct, SIGNAL(triggered()), addressWidget, SLOT(removeEntry()));
+    connect(removeAct, SIGNAL(triggered()), terminalWidget, SLOT(removeEntry()));
 		
 		// productMenu
 		productMenu = menuBar()->addMenu(tr("&Products"));
 
     addAct = new QAction(tr("&Add Product..."), this);
     productMenu->addAction(addAct);
-    connect(addAct, SIGNAL(triggered()), addressWidget, SLOT(addProduct()));
+    connect(addAct, SIGNAL(triggered()), terminalWidget, SLOT(addProduct()));
 
     editAct = new QAction(tr("&Edit Product..."), this);
     editAct->setEnabled(false);
     productMenu->addAction(editAct);
-    connect(editAct, SIGNAL(triggered()), addressWidget, SLOT(editProduct()));
+    connect(editAct, SIGNAL(triggered()), terminalWidget, SLOT(editProduct()));
 
     productMenu->addSeparator();
 
     removeAct = new QAction(tr("&Remove Product"), this);
     removeAct->setEnabled(false);
     productMenu->addAction(removeAct);
-    connect(removeAct, SIGNAL(triggered()), addressWidget, SLOT(removeProduct()));
+    connect(removeAct, SIGNAL(triggered()), terminalWidget, SLOT(removeProduct()));
 
-    connect(addressWidget, SIGNAL(selectionChanged(QItemSelection)),
+    connect(terminalWidget, SIGNAL(selectionChanged(QItemSelection)),
         this, SLOT(updateActions(QItemSelection)));
 
 }
@@ -78,14 +78,14 @@ void MainWindow::openFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this);
     if (!fileName.isEmpty())
-        addressWidget->readFromFile(fileName);
+        terminalWidget->readFromFile(fileName);
 }
 
 void MainWindow::saveFile()
 {
     QString fileName = QFileDialog::getSaveFileName(this);
     if (!fileName.isEmpty())
-        addressWidget->writeToFile(fileName);
+        terminalWidget->writeToFile(fileName);
 }
 
 void MainWindow::updateActions(const QItemSelection &selection)

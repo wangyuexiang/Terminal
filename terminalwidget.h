@@ -1,5 +1,5 @@
-#ifndef ADDRESSWIDGET_H
-#define ADDRESSWIDGET_H
+#ifndef TERMINALWIDGET_H
+#define TERMINALWIDGET_H
 
 #include "newaddresstab.h"
 #include "tablemodel.h"
@@ -13,12 +13,12 @@ class QSortFilterProxyModel;
 class QItemSelectionModel;
 QT_END_NAMESPACE
 
-class AddressWidget : public QTabWidget
+class TerminalWidget : public QTabWidget
 {
     Q_OBJECT
 
 public:
-    AddressWidget(QWidget *parent = 0);
+    TerminalWidget(QWidget *parent = 0);
     void readFromFile(const QString &fileName);
     void writeToFile(const QString &fileName);
 
@@ -47,6 +47,5 @@ private:
     QSortFilterProxyModel *table_proxy;
     QSortFilterProxyModel *product_proxy;
 };
-//! [0]
 
-#endif // ADDRESSWIDGET_H
+#endif // TERMINALWIDGET_H
