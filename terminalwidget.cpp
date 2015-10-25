@@ -112,7 +112,7 @@ void TerminalWidget::removeEntry()
 
 void TerminalWidget::setupTabs()
 {
-		//Order List
+		//Order List Tab
 		table_proxy = new QSortFilterProxyModel(this);
 		table_proxy->setSourceModel(table);
 		table_proxy->setFilterKeyColumn(0);
@@ -134,7 +134,7 @@ void TerminalWidget::setupTabs()
 
 		addTab(tableView, "Order List");
 
-		// Product List
+		// Product List Tab
 		product_proxy = new QSortFilterProxyModel(this);
 				
 		product_proxy->setSourceModel(producttable);
@@ -215,16 +215,17 @@ void TerminalWidget::addProduct()
 
 void TerminalWidget::addProduct(int i, int c, double w, int number1, int number2, int number3)
 {
-    // QList<Product> list = producttable->getList();
-    // Product p(i,c, w, number1, number2, number3);
+	producttable->insertRows(0, 1, QModelIndex());
+	producttable->insertProduct(0,Product(i,c,w,number1,number2,number3));
+  
+		/* QList<Product> list = producttable->getList();
+    Product p(i,c, w, number1, number2, number3);
 
-    // if (!list.contains(p)) { // == for Product not developped
-        producttable->insertRows(0, 1, QModelIndex());
-
+    if (!list.contains(p)) { // == for Product not developped
         QModelIndex index = producttable->index(0, 0, QModelIndex());
         producttable->setData(index, i, Qt::EditRole);
         index = producttable->index(0, 1, QModelIndex());
-        producttable->setData(index, c, Qt::EditRole);
+        producttable->setData(index, 1223, Qt::EditRole);
         index = producttable->index(0, 2, QModelIndex());
         producttable->setData(index, w, Qt::EditRole);				
         index = producttable->index(0, 3, QModelIndex());
@@ -232,12 +233,13 @@ void TerminalWidget::addProduct(int i, int c, double w, int number1, int number2
         index = producttable->index(0, 4, QModelIndex());
         producttable->setData(index, number2, Qt::EditRole);	
         index = producttable->index(0, 5, QModelIndex());
-        producttable->setData(index, number3, Qt::EditRole);					
-        // removeTab(indexOf(newAddressTab));
-    // } else {
-        // QMessageBox::information(this, tr("Duplicate Product"),
-            // tr("The product \"%1\" already exists.").arg(i));
-    // }
+        producttable->setData(index, number3, Qt::EditRole);	
+
+				} else {
+        QMessageBox::information(this, tr("Duplicate Product"),
+            tr("The product \"%1\" already exists.").arg(i));
+    }
+		*/
 }
 
 void TerminalWidget::editProduct()
@@ -302,30 +304,39 @@ void TerminalWidget::editProduct()
         QString newNumber2 = aDialog.number2Text->text();
         QString newNumber3 = aDialog.number3Text->text();	
 
-        if (newCategory != category) {
-            QModelIndex index = producttable->index(row, 1, QModelIndex());
-            producttable->setData(index, newCategory, Qt::EditRole);
-        }
+				int i = item.toInt();
+				int c = newCategory.toInt();
+				double w = newWeight.toDouble();
+				int number1 = newNumber1.toInt();
+				int number2 = newNumber2.toInt();
+				int number3 = newNumber3.toInt();
 
-        if (newWeight != weight) {
-            QModelIndex index = producttable->index(row, 2, QModelIndex());
-            producttable->setData(index, newWeight, Qt::EditRole);
-        }
-
-        if (newNumber1 != number1) {
-            QModelIndex index = producttable->index(row, 3, QModelIndex());
-            producttable->setData(index, newNumber1, Qt::EditRole);
-        }				
+				producttable->insertProduct(row,Product(i,c,w,number1,number2,number3));
 			
-        if (newNumber2 != number2) {
-            QModelIndex index = producttable->index(row, 4, QModelIndex());
-            producttable->setData(index, newNumber2, Qt::EditRole);
-        }				
+        // if (newCategory != category) {
+            // QModelIndex index = producttable->index(row, 1, QModelIndex());
+            // producttable->setData(index, newCategory, Qt::EditRole);
+        // }
 
-        if (newNumber3 != number3) {
-            QModelIndex index = producttable->index(row, 5, QModelIndex());
-            producttable->setData(index, newNumber3, Qt::EditRole);
-        }				
+        // if (newWeight != weight) {
+            // QModelIndex index = producttable->index(row, 2, QModelIndex());
+            // producttable->setData(index, newWeight, Qt::EditRole);
+        // }
+
+        // if (newNumber1 != number1) {
+            // QModelIndex index = producttable->index(row, 3, QModelIndex());
+            // producttable->setData(index, newNumber1, Qt::EditRole);
+        // }				
+			
+        // if (newNumber2 != number2) {
+            // QModelIndex index = producttable->index(row, 4, QModelIndex());
+            // producttable->setData(index, newNumber2, Qt::EditRole);
+        // }				
+
+        // if (newNumber3 != number3) {
+            // QModelIndex index = producttable->index(row, 5, QModelIndex());
+            // producttable->setData(index, newNumber3, Qt::EditRole);
+        // }				
     }
 }
 

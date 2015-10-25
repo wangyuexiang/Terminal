@@ -79,6 +79,12 @@ bool ProductModel::insertRows(int position, int rows, const QModelIndex &index)
     return true;
 }
 
+void ProductModel::append(const Product & product) {
+		beginInsertRows(QModelIndex(), listOfProducts.count(), listOfProducts.count());
+		listOfProducts.append(product);
+		endInsertRows();
+}
+
 bool ProductModel::removeRows(int position, int rows, const QModelIndex &index)
 {
     Q_UNUSED(index);
@@ -114,8 +120,13 @@ bool ProductModel::setData(const QModelIndex &index, const QVariant &value, int 
 
         return true;
     }
-
     return false;
+}
+
+bool ProductModel::insertProduct(int row, const Product & product)
+{
+	 listOfProducts.replace(row, product);
+	 return true;
 }
 
 Qt::ItemFlags ProductModel::flags(const QModelIndex &index) const
