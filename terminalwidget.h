@@ -43,7 +43,6 @@ private:
     ProductModel *producttable;
 		
     TerminalInfoTab *terminalInfoTab;
-
     QSortFilterProxyModel *table_proxy;
     QSortFilterProxyModel *product_proxy;
 };

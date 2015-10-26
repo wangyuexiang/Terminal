@@ -5,8 +5,8 @@
 AddDialog::AddDialog(QWidget *parent)
     : QDialog(parent)
 {
-    nameLabel = new QLabel("Name");
-    addressLabel = new QLabel("Address");
+    nameLabel = new QLabel("Priority");
+    addressLabel = new QLabel("Item");
     okButton = new QPushButton("OK");
     cancelButton = new QPushButton("Cancel");
 

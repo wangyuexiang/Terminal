@@ -19,14 +19,16 @@ public:
 
 public slots:
     void addEntry();
-		// void addProduct();
+		void addProduct();
 
 signals:
     void sendDetails(QString name, QString address);
+		void sendDetails(int i, int c, double w, int number1, int number2, int number3);
 
 private:
     QLabel *descriptionLabel;
-    QPushButton *addButton;
+    QPushButton *addOrderButton;
+    QPushButton *addProductButton;
     QVBoxLayout *mainLayout;
 
 };

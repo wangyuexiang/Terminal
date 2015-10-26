@@ -5,15 +5,15 @@ SOURCES   = adddialog.cpp \
             main.cpp \
             mainwindow.cpp \
             terminalinfotab.cpp \
-            tablemodel.cpp  \
-            productmodel.cpp
+            productmodel.cpp \
+            tablemodel.cpp
 HEADERS   = adddialog.h \
             terminalwidget.h \
             mainwindow.h \
             terminalinfotab.h \
-            tablemodel.h \
             productmodel.h\
-            product.h
+            product.h \
+              tablemodel.h
 
 # install
 target.path = /usr/local/lib

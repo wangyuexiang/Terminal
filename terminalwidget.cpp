@@ -18,7 +18,7 @@ TerminalWidget::TerminalWidget(QWidget *parent)
     connect(terminalInfoTab, SIGNAL(sendDetails(QString, QString)),
         this, SLOT(addEntry(QString, QString)));
 
-    addTab(terminalInfoTab, "Add Order");
+    addTab(terminalInfoTab, "Terminal Information");
 
     setupTabs();
 }
